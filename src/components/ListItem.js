@@ -48,9 +48,10 @@ const ListItem = ({book, addToBasket }) => {
         <Modal/>
         <h3>{book.name}</h3>
         <h4>{book.author}</h4>
-        <p>£{book.price}</p>
+        <p>RRP: £{book.price}</p>
     </ItemList>
   )
 }
 
 export default ListItem
+
