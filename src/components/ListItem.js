@@ -17,6 +17,7 @@ const ListItem = ({book, addToBasket }) => {
     margin: .5em;
     border: 2px solid #ced7e0;
     background: ${(props) => props.background || "#9ccddc"};
+    cursor: pointer;
     `
 
     const Image = styled.img`

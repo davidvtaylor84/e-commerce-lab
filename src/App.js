@@ -5,6 +5,7 @@ import AboutUs from "./components/AboutUs";
 import Basket from "./components/Basket";
 import HomePage from "./components/HomePage";
 import ErrorPage from "./components/ErrorPage";
+import CSS from "./App.css"
 
 function App() {
   const stockList = [

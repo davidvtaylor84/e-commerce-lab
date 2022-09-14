@@ -1,20 +1,27 @@
 import React from 'react'
+import styled from 'styled-components'
+
+const BasketItem = styled.li`
+    padding: 2em;
+    list-style: none;
+    margin: 0;
+    width: 25%;`
+
 
 const BasketListItem = ({book, removeFromBasket}) => {
 
     const handleClick = ()=>{
-        removeFromBasket(book)
+    removeFromBasket(book)
     }
 
   return (
     <div>
-    <li>
+    <BasketItem>
         <h3>{book.name}</h3>
         <h4>{book.author}</h4>
         <p>£{book.price}</p>
-        <img src={book.imageUrl}/>
         <button onClick={handleClick}>Remove from basket</button>
-    </li>
+    </BasketItem>
     </div>
 
   )
