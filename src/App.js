@@ -121,7 +121,7 @@ function App() {
   return (
     <Router>
       <NavBar />
-
+      <hr></hr>
       <Routes>
         <Route
           exact
