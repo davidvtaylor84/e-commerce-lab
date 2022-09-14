@@ -1,14 +1,36 @@
 import React from 'react'
 import Popup from 'reactjs-popup'
+import styled from 'styled-components'
 
 const ListItem = ({book, addToBasket }) => {
+
+    const ItemList = styled.li`
+    padding: 2em;
+    list-style: none;
+    margin: 0;
+    width: 25%;
+    text-align: center;
+    `
+    const Button = styled.button`
+    font-size: 1em;
+    padding: 0.3em;
+    margin: .5em;
+    border: 2px solid #ced7e0;
+    background: ${(props) => props.background || "#9ccddc"};
+    `
+
+    const Image = styled.img`
+    border: solid 1px black;
+    width:270px;
+    height:400px;
+    `
 
     const handleClick = (e)=>{
         addToBasket(book)
     }
 
     const Modal = () => (
-        <Popup trigger={<button className="button"> View More Details </button>} modal>
+        <Popup trigger={<Button className="button"> View More Details </Button>} modal>
           <span>
           <h3>{book.name}</h3>
           <h4>{book.author}</h4>
@@ -20,14 +42,14 @@ const ListItem = ({book, addToBasket }) => {
 
 
   return (
-    <li>
+    <ItemList>
+        <Image src={book.imageUrl}/>
+        <Button onClick={handleClick}>Add to basket</Button>
+        <Modal/>
         <h3>{book.name}</h3>
         <h4>{book.author}</h4>
         <p>£{book.price}</p>
-        <img src={book.imageUrl}/>
-        <button onClick={handleClick}>Add to basket</button>
-        <Modal/>
-    </li>
+    </ItemList>
   )
 }
 

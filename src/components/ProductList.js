@@ -2,6 +2,13 @@ import React from 'react'
 import ListItem from './ListItem'
 import Popup from 'reactjs-popup'
 import 'reactjs-popup/dist/index.css'
+import styled from 'styled-components'
+
+const BookListStyle = styled.ul`
+display: flex;
+justify-content: center;
+flex-wrap: wrap;
+`
 
 const ProductList = ({stockList, addToBasket}) => {
 
@@ -10,10 +17,8 @@ const ProductList = ({stockList, addToBasket}) => {
     })
 
   return (
-    <>
-        <div>ProductList</div>
-        <ul>{allStock}</ul>
-    </>
+    
+    <BookListStyle>{allStock}</BookListStyle>
   )
 }
 
