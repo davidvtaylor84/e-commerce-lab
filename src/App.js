@@ -1,5 +1,5 @@
-import React,{useState} from "react";
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import AboutUs from "./components/AboutUs";
 import Basket from "./components/Basket";
@@ -7,7 +7,6 @@ import HomePage from "./components/HomePage";
 import ErrorPage from "./components/ErrorPage";
 
 function App() {
-
   const stockList = [
     {
       id: "1",
@@ -35,7 +34,7 @@ function App() {
       author: "Stephanie Garber",
       description:
         "Another sumptuous adventure full of passion, intrigue and forbidden magic awaits Evangeline Fox and the Prince of Hearts in the sequel to Stephanie Garber's bestselling Once Upon A Broken Heart.",
-      price: "14.99",
+      price: 14.99,
       imageUrl:
         "https://cdn.waterstones.com/override/v1/large/9781/5293/9781529380965.jpg",
     },
@@ -63,60 +62,81 @@ function App() {
       id: "6",
       name: "The Book Eaters",
       author: "Sunyi Dean",
-      description: "A poignant, richly imagined tale about family, betrayal and the price of loyalty, Dean's spellbinding debut about six old families subsisting on a diet of stories and legends is an irresistible slice of dark fantasy.",
+      description:
+        "A poignant, richly imagined tale about family, betrayal and the price of loyalty, Dean's spellbinding debut about six old families subsisting on a diet of stories and legends is an irresistible slice of dark fantasy.",
       price: 14.99,
-      imageUrl: "https://cdn.waterstones.com/override/v1/large/2928/3771/2928377101480.jpg",
+      imageUrl:
+        "https://cdn.waterstones.com/override/v1/large/2928/3771/2928377101480.jpg",
     },
     {
       id: "7",
       name: "How To Live When You Could Be Dead",
       author: "Deborah James",
-      description: "The journalist and podcast host tells her inspirational and courageous story of living with incurable bowel cancer and how developing a positive mindset was key to enabling her to cope with her diagnosis.",
+      description:
+        "The journalist and podcast host tells her inspirational and courageous story of living with incurable bowel cancer and how developing a positive mindset was key to enabling her to cope with her diagnosis.",
       price: 7.99,
-      imageUrl: "https://cdn.waterstones.com/bookjackets/large/9781/7850/9781785043598.jpg",
+      imageUrl:
+        "https://cdn.waterstones.com/bookjackets/large/9781/7850/9781785043598.jpg",
     },
     {
       id: "8",
       name: "The Atlas Six",
       author: "Olivie Blake",
-      description: "Opening the doors to a world of magic, ancient wisdom and secret societies, this slice of richly imagined and unputdownable fantasy follows six uniquely talented young magicians as they are invited to an initiation that will change their lives forever.",
+      description:
+        "Opening the doors to a world of magic, ancient wisdom and secret societies, this slice of richly imagined and unputdownable fantasy follows six uniquely talented young magicians as they are invited to an initiation that will change their lives forever.",
       price: 6.99,
-      imageUrl: "https://cdn.waterstones.com/bookjackets/large/9781/5290/9781529095258.jpg",
-    }
+      imageUrl:
+        "https://cdn.waterstones.com/bookjackets/large/9781/5290/9781529095258.jpg",
+    },
   ];
 
-  const [basket, setBasket] = useState([])
-  const [basketTotal, setBasketTotal] = useState(0)
+  const [basket, setBasket] = useState([]);
+  const [basketTotal, setBasketTotal] = useState(0);
 
-  const addToBasket = (book)=>{
-    const basketCopy = [...basket]
-    basketCopy.push(book)
-    setBasket(basketCopy)
-  }
+  useEffect(()=>{
+    calculateBasketTotal();
+  },[basket])
 
-  const removeFromBasket = (id)=>{
-    const basketCopy = [...basket]
-    const indexLocation = basketCopy.indexOf(id)
-    basketCopy.splice(indexLocation, 1)
-    setBasket(basketCopy)
-  }
+  const addToBasket = (book) => {
+    const basketCopy = [...basket];
+    basketCopy.push(book);
+    setBasket(basketCopy);
+  };
 
-  const calculateBasketTotal = (basket)=>{
-    const basketPrices = basket.map((book)=>book.price)
-    
-  }
+  const removeFromBasket = (id) => {
+    const basketCopy = [...basket];
+    const indexLocation = basketCopy.indexOf(id);
+    basketCopy.splice(indexLocation, 1);
+    setBasket(basketCopy);
+  };
+
+  const calculateBasketTotal = () => {
+    const basketPrices = basket.map((book) => book.price);
+    const totalPrice = basketPrices.reduce((currentTotal, price) => 
+      currentTotal + price, 0
+    );
+    setBasketTotal(totalPrice);
+  };
 
   return (
     <Router>
-      <NavBar/>
+      <NavBar />
 
       <Routes>
-        <Route exact path="/" element={<HomePage stockList={stockList} addToBasket={addToBasket}/>}/>
-        <Route path="/basket" element={<Basket basket={basket} removeFromBasket={removeFromBasket}/>}/>
-        <Route path="/about" element={<AboutUs/>}/>
-        <Route path="*" element={<ErrorPage/>}/>
+        <Route
+          exact
+          path="/"
+          element={<HomePage stockList={stockList} addToBasket={addToBasket} />}
+        />
+        <Route
+          path="/basket"
+          element={
+            <Basket basket={basket} removeFromBasket={removeFromBasket} basketTotal={basketTotal}/>
+          }
+        />
+        <Route path="/about" element={<AboutUs />} />
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
-
     </Router>
   );
 }
