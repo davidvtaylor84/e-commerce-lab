@@ -3,8 +3,8 @@ import BasketListItem from './BasketListItem'
 
 const Basket = ({basket, removeFromBasket}) => {
     
-    const basketList = basket.map((book)=>{
-        return <BasketListItem book={book} removeFromBasket={removeFromBasket}/>
+    const basketList = basket.map((book, index)=>{
+        return <BasketListItem book={book} removeFromBasket={removeFromBasket} key={index}/>
     })
 
   return (

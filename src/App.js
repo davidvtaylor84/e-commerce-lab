@@ -86,6 +86,7 @@ function App() {
   ];
 
   const [basket, setBasket] = useState([])
+  const [basketTotal, setBasketTotal] = useState(0)
 
   const addToBasket = (book)=>{
     const basketCopy = [...basket]
@@ -96,8 +97,13 @@ function App() {
   const removeFromBasket = (id)=>{
     const basketCopy = [...basket]
     const indexLocation = basketCopy.indexOf(id)
-    console.log(indexLocation)
+    basketCopy.splice(indexLocation, 1)
     setBasket(basketCopy)
+  }
+
+  const calculateBasketTotal = (basket)=>{
+    const basketPrices = basket.map((book)=>book.price)
+    
   }
 
   return (
